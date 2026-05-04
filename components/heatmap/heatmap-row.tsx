@@ -18,94 +18,88 @@ export default function HeatmapRow({ testCase, index }: HeatmapRowProps) {
   const status = useEvalStore((s) => s.status);
   const isPlaceholder = testCase.id.startsWith('placeholder-');
 
-const handleCellClick = (criterionKey: keyof Omit<EvalScores, 'avg'>) => {
-  if (testCase.status !== 'scored') return;
-  setDrillDownTarget({
-    testCaseId: testCase.id,
-    criterion: criterionKey,
-  });
-};
+  const handleCellClick = (criterionKey: keyof Omit<EvalScores, 'avg'>) => {
+    if (testCase.status !== 'scored') return;
+    setDrillDownTarget({
+      testCaseId: testCase.id,
+      criterion: criterionKey,
+    });
+  };
 
   return (
     <motion.div
       layout
-      className="flex items-center gap-2 py-1"
+      className="flex items-center py-1"
     >
       {/* Row label */}
-      <div className="w-40 shrink-0">
-        <AnimatePresence mode="wait">
-          <motion.span
-            key={testCase.name}
-            initial={{ opacity: 0, y: -6 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 6 }}
-            transition={{ duration: 0.2, delay: index * 0.05 }}
-            className={`
-              text-sm font-medium truncate block
-              ${isPlaceholder
-                ? 'text-zinc-700'
-                : 'text-zinc-300'
-              }
-            `}
-          >
-            {testCase.name}
-          </motion.span>
-        </AnimatePresence>
-      </div>
+<div className="flex-1 min-w-0">
+  <AnimatePresence mode="wait">
+    <motion.span
+      key={testCase.name}
+      initial={{ opacity: 0, y: -6 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 6 }}
+      transition={{ duration: 0.2, delay: index * 0.05 }}
+      className={`
+        text-sm font-medium truncate block
+        ${isPlaceholder ? 'text-zinc-700' : 'text-zinc-300'}
+      `}
+    >
+      {testCase.name}
+    </motion.span>
+  </AnimatePresence>
+</div>
 
-      {/* Criteria cells */}
-      <div className="flex flex-1 gap-2">
-        {CRITERIA_COLUMNS.map((col, colIndex) => (
-          <motion.div
-            key={col.key}
-            className="flex-1"
-            initial={false}
-            animate={{ opacity: 1 }}
-            transition={{ delay: colIndex * 0.15 }}
-          >
-            <HeatmapCell
-              criterionKey={col.key}
-              value={testCase.scores?.[col.key]}
-              status={
-                isPlaceholder
-                  ? 'pending'
-                  : testCase.status === 'scored'
-                  ? 'scored'
-                  : testCase.status
-              }
-              onClick={() => handleCellClick(col.key)}
-              
-            />
-          </motion.div>
-        ))}
-
-        {/* Avg cell */}
-        <div className="w-16 shrink-0 h-10 flex items-center justify-center">
-          <AnimatePresence>
-            {testCase.scores?.avg !== undefined ? (
-              <motion.span
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.3, delay: 0.6 }}
-                className={`
-                  text-sm font-semibold
-                  ${getAvgTextColor(testCase.scores.avg)}
-                `}
-              >
-                {testCase.scores.avg}%
-              </motion.span>
-            ) : (
-              <motion.span
-                initial={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="text-zinc-700 text-sm"
-              >
-                {isPlaceholder ? '—' : '...'}
-              </motion.span>
-            )}
-          </AnimatePresence>
-        </div>
-      </div>
+<div className="flex shrink-0 gap-3 items-center">
+  {CRITERIA_COLUMNS.map((col, colIndex) => (
+    <motion.div
+      key={col.key}
+      className="w-12 shrink-0"
+      initial={false}
+      animate={{ opacity: 1 }}
+      transition={{ delay: colIndex * 0.15 }}
+    >
+      <HeatmapCell
+        criterionKey={col.key}
+        value={testCase.scores?.[col.key]}
+        status={
+          isPlaceholder
+            ? 'pending'
+            : testCase.status === 'scored'
+            ? 'scored'
+            : testCase.status
+        }
+        reasoning={testCase.judgeReasoning?.[col.key as keyof typeof testCase.judgeReasoning]}
+        onClick={() => handleCellClick(col.key)}
+      />
+    </motion.div>
+  ))}
+  {/* Divider */}
+  <div className="w-px h-6 bg-zinc-700 mx-1" />
+  {/* Avg cell */}
+  <div className="w-16 shrink-0 h-10 flex items-center justify-center bg-zinc-900 rounded-sm border border-zinc-800">
+    <AnimatePresence>
+      {testCase.scores?.avg !== undefined ? (
+        <motion.span
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.3, delay: 0.6 }}
+          className={`text-sm font-bold ${getAvgTextColor(testCase.scores.avg)}`}
+        >
+          {testCase.scores.avg}%
+        </motion.span>
+      ) : (
+        <motion.span
+          initial={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="text-zinc-600 text-sm"
+        >
+          {isPlaceholder ? '—' : '...'}
+        </motion.span>
+      )}
+    </AnimatePresence>
+  </div>
+</div>
     </motion.div>
   );
 }
