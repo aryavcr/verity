@@ -19,12 +19,13 @@ export const CRITERIA_COLUMNS = [
 ] as const;
 
 export const MODEL_OPTIONS: ModelOption[] = [
+  { id: 'gemini-2.5-flash',      label: 'Gemini 2.5 Flash',   provider: 'google'    },
+  { id: 'gemini-2.0-flash',      label: 'Gemini 2.0 Flash',   provider: 'google'    },
+  { id: 'gemini-2.5-pro',        label: 'Gemini 2.5 Pro',     provider: 'google'    },
   { id: 'gpt-4o',                label: 'GPT-4o',             provider: 'openai'    },
   { id: 'gpt-4o-mini',           label: 'GPT-4o mini',        provider: 'openai'    },
   { id: 'claude-sonnet-4',       label: 'Claude Sonnet 4',    provider: 'anthropic' },
   { id: 'claude-haiku-4',        label: 'Claude Haiku 4',     provider: 'anthropic' },
-  { id: 'gemini-2.0-flash',      label: 'Gemini 2.0 Flash',   provider: 'google'    },
-  { id: 'gemini-2.5-pro',        label: 'Gemini 2.5 Pro',     provider: 'google'    },
 ];
 
 export const SCORE_COLORS: Record<number, string> = {
@@ -35,8 +36,8 @@ export const SCORE_COLORS: Record<number, string> = {
   1: 'bg-red-500',
 };
 
-export const JUDGE_MODEL = process.env.JUDGE_MODEL ?? 'gpt-4o';
+export const JUDGE_MODEL = process.env.JUDGE_MODEL ?? 'gemini-2.5-flash';
 
-export const CONCURRENCY_LIMIT = 2;
+export const CONCURRENCY_LIMIT = 1;
 
 export const TEST_CASE_COUNT = 8;
