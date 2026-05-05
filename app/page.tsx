@@ -15,7 +15,8 @@ export default function Home() {
   const { startRun } = useEvalStream();
 
   return (
-    <main className="min-h-screen bg-background">
+    <main className="min-h-screen bg-background bg-size-[20px_20px] bg-[radial-gradient(#d4d4d4_1px,transparent_1px)] dark:bg-[radial-gradient(#404040_1px,transparent_1px)]">
+      <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-background mask-[radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
       <div className="max-w-5xl mx-auto px-6 py-12 flex flex-col gap-8">
 
         {/* Header */}
