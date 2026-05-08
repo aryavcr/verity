@@ -16,6 +16,7 @@
     "@langchain/google-genai": "^2.1.26",
     "@langchain/openai": "^1.4.2",
     "@remixicon/react": "^4.9.0",
+    "@supabase/supabase-js": "^2.105.3",
     "ai": "^6.0.146",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
