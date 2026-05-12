@@ -5,7 +5,7 @@ import { Ticket, } from "lucide-react"
 
 export function Navbar() {
     return (
-        <header className="h-12 shrink-0 border-b border-border backdrop-blur-md bg-surface-1/80 shadow-surface-1 flex items-center justify-between px-4 sticky top-0 z-20">
+        <header className="h-12 shrink-0 border-b-2 border-border backdrop-blur-md bg-surface-1/80 shadow-surface-1 flex items-center justify-between px-4 sticky top-0 z-20">
             {/*left*/}
             <div className="flex ml-3 gap-3 items-center text-red-400 text-lg ">
                 <Ticket /><span className="uppercase font-semibold">Verity</span>

@@ -164,7 +164,7 @@
   --surface-shadow-7: 0 1px 2px oklch(0 0 0 / 0.04), 0 2px 4px oklch(0 0 0 / 0.05), 0 4px 8px oklch(0 0 0 / 0.06), 0 8px 16px oklch(0 0 0 / 0.07), 0 16px 32px oklch(0 0 0 / 0.08), 0 1px 4px oklch(0 0 0 / 0.04);
   --surface-shadow-8: 0 1px 2px oklch(0 0 0 / 0.04), 0 2px 4px oklch(0 0 0 / 0.05), 0 4px 8px oklch(0 0 0 / 0.06), 0 8px 16px oklch(0 0 0 / 0.07), 0 16px 32px oklch(0 0 0 / 0.08), 0 32px 64px oklch(0 0 0 / 0.10), 0 1px 4px oklch(0 0 0 / 0.04);
 
-  /* texture used by bg-dots & bg-gradient id, defined below & then used in layout, dark/light mode conversion happens using surface vars */
+  /* texture used by bg-dots & bg-gradient id, defined below & then used in layout, dark/light mode conversion happens using surface vars*/
   --dot-color: oklch(0.30 0 0);
   --dot-opacity: 0.04;
   --gradient-bg: none --background: var(--surface-1);
