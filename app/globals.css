@@ -4,7 +4,6 @@
 
 @custom-variant dark (&:is(.dark *));
 
-
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -42,7 +41,7 @@
   --color-score-low-text: var(--score-low-text);
   --color-success: var(--success);
   --color-warning: var(--warning);
-  --color-chart-1: oklch(0.60 0.19 250);
+  --color-chart-1: oklch(0.6 0.19 250);
   --color-chart-2: oklch(0.68 0.19 45);
   --color-chart-3: oklch(0.65 0.15 180);
   --color-chart-4: oklch(0.58 0.18 295);
@@ -73,7 +72,6 @@
   }
 
   @keyframes spinner-dash {
-
     0%,
     100% {
       stroke-dasharray: 15 85;
@@ -137,9 +135,9 @@
 :root {
   --radius: 0.75rem;
 
-  --font-display: 'Satoshi', system-ui, sans-serif;
+  --font-display: "Satoshi", system-ui, sans-serif;
   --font-body: var(--font-geist-sans), system-ui, sans-serif;
-  --font-mono-stack: var(--font-geist-mono), 'JetBrains Mono', monospace;
+  --font-mono-stack: var(--font-geist-mono), "JetBrains Mono", monospace;
 
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
@@ -157,15 +155,30 @@
 
   --surface-shadow-1: none;
   --surface-shadow-2: inset 0 1px 3px oklch(0 0 0 / 0.05);
-  --surface-shadow-3: 0 1px 2px oklch(0 0 0 / 0.04), 0 1px 4px oklch(0 0 0 / 0.04);
-  --surface-shadow-4: 0 1px 2px oklch(0 0 0 / 0.04), 0 2px 4px oklch(0 0 0 / 0.05), 0 1px 4px oklch(0 0 0 / 0.04);
-  --surface-shadow-5: 0 1px 2px oklch(0 0 0 / 0.04), 0 2px 4px oklch(0 0 0 / 0.05), 0 4px 8px oklch(0 0 0 / 0.06), 0 1px 4px oklch(0 0 0 / 0.04);
-  --surface-shadow-6: 0 1px 2px oklch(0 0 0 / 0.04), 0 2px 4px oklch(0 0 0 / 0.05), 0 4px 8px oklch(0 0 0 / 0.06), 0 8px 16px oklch(0 0 0 / 0.07), 0 1px 4px oklch(0 0 0 / 0.04);
-  --surface-shadow-7: 0 1px 2px oklch(0 0 0 / 0.04), 0 2px 4px oklch(0 0 0 / 0.05), 0 4px 8px oklch(0 0 0 / 0.06), 0 8px 16px oklch(0 0 0 / 0.07), 0 16px 32px oklch(0 0 0 / 0.08), 0 1px 4px oklch(0 0 0 / 0.04);
-  --surface-shadow-8: 0 1px 2px oklch(0 0 0 / 0.04), 0 2px 4px oklch(0 0 0 / 0.05), 0 4px 8px oklch(0 0 0 / 0.06), 0 8px 16px oklch(0 0 0 / 0.07), 0 16px 32px oklch(0 0 0 / 0.08), 0 32px 64px oklch(0 0 0 / 0.10), 0 1px 4px oklch(0 0 0 / 0.04);
+  --surface-shadow-3:
+    0 1px 2px oklch(0 0 0 / 0.04), 0 1px 4px oklch(0 0 0 / 0.04);
+  --surface-shadow-4:
+    0 1px 2px oklch(0 0 0 / 0.04), 0 2px 4px oklch(0 0 0 / 0.05),
+    0 1px 4px oklch(0 0 0 / 0.04);
+  --surface-shadow-5:
+    0 1px 2px oklch(0 0 0 / 0.04), 0 2px 4px oklch(0 0 0 / 0.05),
+    0 4px 8px oklch(0 0 0 / 0.06), 0 1px 4px oklch(0 0 0 / 0.04);
+  --surface-shadow-6:
+    0 1px 2px oklch(0 0 0 / 0.04), 0 2px 4px oklch(0 0 0 / 0.05),
+    0 4px 8px oklch(0 0 0 / 0.06), 0 8px 16px oklch(0 0 0 / 0.07),
+    0 1px 4px oklch(0 0 0 / 0.04);
+  --surface-shadow-7:
+    0 1px 2px oklch(0 0 0 / 0.04), 0 2px 4px oklch(0 0 0 / 0.05),
+    0 4px 8px oklch(0 0 0 / 0.06), 0 8px 16px oklch(0 0 0 / 0.07),
+    0 16px 32px oklch(0 0 0 / 0.08), 0 1px 4px oklch(0 0 0 / 0.04);
+  --surface-shadow-8:
+    0 1px 2px oklch(0 0 0 / 0.04), 0 2px 4px oklch(0 0 0 / 0.05),
+    0 4px 8px oklch(0 0 0 / 0.06), 0 8px 16px oklch(0 0 0 / 0.07),
+    0 16px 32px oklch(0 0 0 / 0.08), 0 32px 64px oklch(0 0 0 / 0.1),
+    0 1px 4px oklch(0 0 0 / 0.04);
 
   /* texture used by bg-dots & bg-gradient id, defined below & then used in layout, dark/light mode conversion happens using surface vars*/
-  --dot-color: oklch(0.30 0 0);
+  --dot-color: oklch(0.3 0 0);
   --dot-opacity: 0.04;
   --gradient-bg: none --background: var(--surface-1);
   --foreground: oklch(0.145 0.005 80);
@@ -186,15 +199,15 @@
   --accent: oklch(0.55 0.18 280);
   --accent-foreground: oklch(0.985 0.002 280);
 
-  --destructive: oklch(0.55 0.20 25);
+  --destructive: oklch(0.55 0.2 25);
   --destructive-foreground: oklch(0.985 0 0);
   --success: oklch(0.62 0.14 145);
   --warning: oklch(0.75 0.15 85);
 
   --score-high-bg: oklch(0.93 0.07 145);
-  --score-high-text: oklch(0.30 0.10 145);
+  --score-high-text: oklch(0.3 0.1 145);
   --score-mid-bg: oklch(0.95 0.07 85);
-  --score-mid-text: oklch(0.40 0.10 85);
+  --score-mid-text: oklch(0.4 0.1 85);
   --score-low-bg: oklch(0.93 0.07 25);
   --score-low-text: oklch(0.35 0.12 25);
 
@@ -215,24 +228,54 @@
   --surface-3: oklch(0.195 0.013 280);
   --surface-4: oklch(0.215 0.012 280);
   --surface-5: oklch(0.235 0.011 280);
-  --surface-6: oklch(0.255 0.010 280);
-  --surface-7: oklch(0.275 0.010 280);
+  --surface-6: oklch(0.255 0.01 280);
+  --surface-7: oklch(0.275 0.01 280);
   --surface-8: oklch(0.295 0.009 280);
 
   --surface-shadow-1: none;
-  --surface-shadow-2: inset 0 1px 0 oklch(1 0 0 / 0.03), inset 0 0 0 1px oklch(1 0 0 / 0.03);
-  --surface-shadow-3: inset 0 1px 0 oklch(1 0 0 / 0.06), inset 0 0 0 1px oklch(1 0 0 / 0.04), 0 0 0 1px oklch(0 0 0 / 0.20), 0 1px 3px oklch(0 0 0 / 0.28);
-  --surface-shadow-4: inset 0 1px 0 oklch(1 0 0 / 0.08), inset 0 0 0 1px oklch(1 0 0 / 0.06), 0 0 0 1px oklch(0 0 0 / 0.24), 0 2px 4px oklch(0 0 0 / 0.30), 0 1px 2px oklch(0 0 0 / 0.24);
-  --surface-shadow-5: inset 0 1px 0 oklch(1 0 0 / 0.10), inset 0 0 0 1px oklch(1 0 0 / 0.07), 0 0 0 1px oklch(0 0 0 / 0.28), 0 4px 8px oklch(0 0 0 / 0.32), 0 2px 4px oklch(0 0 0 / 0.26), 0 1px 2px oklch(0 0 0 / 0.22);
-  --surface-shadow-6: inset 0 1px 0 oklch(1 0 0 / 0.12), inset 0 0 0 1px oklch(1 0 0 / 0.08), 0 0 0 1px oklch(0 0 0 / 0.30), 0 8px 16px oklch(0 0 0 / 0.35), 0 4px 8px oklch(0 0 0 / 0.28), 0 2px 4px oklch(0 0 0 / 0.24), 0 1px 2px oklch(0 0 0 / 0.20);
-  --surface-shadow-7: inset 0 1px 0 oklch(1 0 0 / 0.14), inset 0 0 0 1px oklch(1 0 0 / 0.09), 0 0 0 1px oklch(0 0 0 / 0.32), 0 16px 32px oklch(0 0 0 / 0.38), 0 8px 16px oklch(0 0 0 / 0.30), 0 4px 8px oklch(0 0 0 / 0.26), 0 2px 4px oklch(0 0 0 / 0.22), 0 1px 2px oklch(0 0 0 / 0.18);
-  --surface-shadow-8: inset 0 1px 0 oklch(1 0 0 / 0.16), inset 0 0 0 1px oklch(1 0 0 / 0.10), 0 0 0 1px oklch(0 0 0 / 0.35), 0 32px 64px oklch(0 0 0 / 0.42), 0 16px 32px oklch(0 0 0 / 0.34), 0 8px 16px oklch(0 0 0 / 0.28), 0 4px 8px oklch(0 0 0 / 0.24), 0 2px 4px oklch(0 0 0 / 0.20), 0 1px 2px oklch(0 0 0 / 0.16);
+  --surface-shadow-2:
+    inset 0 1px 0 oklch(1 0 0 / 0.03), inset 0 0 0 1px oklch(1 0 0 / 0.03);
+  --surface-shadow-3:
+    inset 0 1px 0 oklch(1 0 0 / 0.06), inset 0 0 0 1px oklch(1 0 0 / 0.04),
+    0 0 0 1px oklch(0 0 0 / 0.2), 0 1px 3px oklch(0 0 0 / 0.28);
+  --surface-shadow-4:
+    inset 0 1px 0 oklch(1 0 0 / 0.08), inset 0 0 0 1px oklch(1 0 0 / 0.06),
+    0 0 0 1px oklch(0 0 0 / 0.24), 0 2px 4px oklch(0 0 0 / 0.3),
+    0 1px 2px oklch(0 0 0 / 0.24);
+  --surface-shadow-5:
+    inset 0 1px 0 oklch(1 0 0 / 0.1), inset 0 0 0 1px oklch(1 0 0 / 0.07),
+    0 0 0 1px oklch(0 0 0 / 0.28), 0 4px 8px oklch(0 0 0 / 0.32),
+    0 2px 4px oklch(0 0 0 / 0.26), 0 1px 2px oklch(0 0 0 / 0.22);
+  --surface-shadow-6:
+    inset 0 1px 0 oklch(1 0 0 / 0.12), inset 0 0 0 1px oklch(1 0 0 / 0.08),
+    0 0 0 1px oklch(0 0 0 / 0.3), 0 8px 16px oklch(0 0 0 / 0.35),
+    0 4px 8px oklch(0 0 0 / 0.28), 0 2px 4px oklch(0 0 0 / 0.24),
+    0 1px 2px oklch(0 0 0 / 0.2);
+  --surface-shadow-7:
+    inset 0 1px 0 oklch(1 0 0 / 0.14), inset 0 0 0 1px oklch(1 0 0 / 0.09),
+    0 0 0 1px oklch(0 0 0 / 0.32), 0 16px 32px oklch(0 0 0 / 0.38),
+    0 8px 16px oklch(0 0 0 / 0.3), 0 4px 8px oklch(0 0 0 / 0.26),
+    0 2px 4px oklch(0 0 0 / 0.22), 0 1px 2px oklch(0 0 0 / 0.18);
+  --surface-shadow-8:
+    inset 0 1px 0 oklch(1 0 0 / 0.16), inset 0 0 0 1px oklch(1 0 0 / 0.1),
+    0 0 0 1px oklch(0 0 0 / 0.35), 0 32px 64px oklch(0 0 0 / 0.42),
+    0 16px 32px oklch(0 0 0 / 0.34), 0 8px 16px oklch(0 0 0 / 0.28),
+    0 4px 8px oklch(0 0 0 / 0.24), 0 2px 4px oklch(0 0 0 / 0.2),
+    0 1px 2px oklch(0 0 0 / 0.16);
 
-  --dot-color: oklch(0.90 0 0);
+  --dot-color: oklch(0.9 0 0);
   --dot-opacity: 0.04;
   --gradient-bg:
-    radial-gradient(ellipse 80% 60% at 10% 0%, oklch(0.30 0.04 280 / 0.2), transparent),
-    radial-gradient(ellipse 50% 40% at 90% 100%, oklch(0.25 0.03 200 / 0.12), transparent);
+    radial-gradient(
+      ellipse 80% 60% at 10% 0%,
+      oklch(0.3 0.04 280 / 0.2),
+      transparent
+    ),
+    radial-gradient(
+      ellipse 50% 40% at 90% 100%,
+      oklch(0.25 0.03 200 / 0.12),
+      transparent
+    );
 
   --background: var(--surface-1);
   --foreground: oklch(0.93 0.005 80);
@@ -243,7 +286,7 @@
   --muted: var(--surface-2);
   --muted-foreground: oklch(0.62 0.01 280);
   --border: oklch(1 0 0 / 0.08);
-  --input: oklch(1 0 0 / 0.10);
+  --input: oklch(1 0 0 / 0.1);
   --ring: oklch(0.65 0.22 280);
 
   --primary: oklch(0.93 0.005 80);
@@ -253,17 +296,17 @@
   --accent: oklch(0.65 0.22 280);
   --accent-foreground: oklch(0.985 0.002 280);
 
-  --destructive: oklch(0.65 0.20 25);
+  --destructive: oklch(0.65 0.2 25);
   --destructive-foreground: oklch(0.985 0 0);
-  --success: oklch(0.70 0.16 145);
-  --warning: oklch(0.80 0.16 85);
+  --success: oklch(0.7 0.16 145);
+  --warning: oklch(0.8 0.16 85);
 
-  --score-high-bg: oklch(0.28 0.10 145);
+  --score-high-bg: oklch(0.28 0.1 145);
   --score-high-text: oklch(0.82 0.12 145);
   --score-mid-bg: oklch(0.28 0.09 85);
-  --score-mid-text: oklch(0.82 0.10 85);
-  --score-low-bg: oklch(0.26 0.10 25);
-  --score-low-text: oklch(0.82 0.10 25);
+  --score-mid-text: oklch(0.82 0.1 85);
+  --score-low-bg: oklch(0.26 0.1 25);
+  --score-low-text: oklch(0.82 0.1 25);
 
   --sidebar: var(--surface-2);
   --sidebar-foreground: oklch(0.93 0.005 80);
@@ -274,7 +317,6 @@
   --sidebar-border: oklch(1 0 0 / 0.08);
   --sidebar-ring: oklch(0.65 0.22 280);
 }
-
 
 @utility shadow-surface-1 {
   box-shadow: var(--surface-shadow-1);
@@ -308,7 +350,6 @@
   box-shadow: var(--surface-shadow-8);
 }
 
-
 @utility score-high {
   background-color: var(--score-high-bg);
   color: var(--score-high-text);
@@ -332,7 +373,9 @@
   body {
     @apply bg-background text-foreground;
     font-family: var(--font-body);
-    font-feature-settings: "rlig" 1, "calt" 1;
+    font-feature-settings:
+      "rlig" 1,
+      "calt" 1;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -367,13 +410,16 @@
   }
 }
 
-
 #bg-dots {
   position: fixed;
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  background-image: radial-gradient(circle, var(--dot-color) 0px, transparent 0px);
+  background-image: radial-gradient(
+    circle,
+    var(--dot-color) 0px,
+    transparent 0px
+  );
   background-size: 24px 24px;
   opacity: var(--dot-opacity);
 }
@@ -385,7 +431,6 @@
   pointer-events: none;
   background: var(--gradient-bg);
 }
-
 
 ::-webkit-scrollbar {
   width: 6px;
@@ -407,12 +452,14 @@
 
 .shimmer-text {
   color: transparent;
-  background: linear-gradient(90deg,
-      oklch(0.65 0 0) 0%,
-      oklch(0.65 0 0) 35%,
-      oklch(0.35 0 0) 50%,
-      oklch(0.65 0 0) 65%,
-      oklch(0.65 0 0) 100%);
+  background: linear-gradient(
+    90deg,
+    oklch(0.65 0 0) 0%,
+    oklch(0.65 0 0) 35%,
+    oklch(0.35 0 0) 50%,
+    oklch(0.65 0 0) 65%,
+    oklch(0.65 0 0) 100%
+  );
   background-size: 300% 100%;
   background-clip: text;
   -webkit-background-clip: text;
