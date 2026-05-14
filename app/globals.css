@@ -223,7 +223,7 @@
 
 /*dark mode*/
 .dark {
-  --surface-1: oklch(0.155 0.015 280);
+  --surface-1: oklch(9.693% 0.00001 271.152);
   --surface-2: oklch(0.175 0.014 280);
   --surface-3: oklch(0.195 0.013 280);
   --surface-4: oklch(0.215 0.012 280);
@@ -284,7 +284,7 @@
   --popover: var(--surface-7);
   --popover-foreground: oklch(0.93 0.005 80);
   --muted: var(--surface-2);
-  --muted-foreground: oklch(0.62 0.01 280);
+  --muted-foreground: oklch(68.369% 0.00744 277.054);
   --border: oklch(1 0 0 / 0.08);
   --input: oklch(1 0 0 / 0.1);
   --ring: oklch(0.65 0.22 280);
