@@ -1,20 +1,12 @@
 "use client";
 
-import {
-  useEffect,
-  useState,
-  type ReactNode,
-} from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import * as TooltipPrimitive from "@radix-ui/react-tooltip";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { springs } from "@/lib/springs";
 import { fontWeights } from "@/lib/font-weight";
 import { useShape } from "@/lib/shape-context";
-
-// ---------------------------------------------------------------------------
-// Types
-// ---------------------------------------------------------------------------
 
 type TooltipSide = "top" | "right" | "bottom" | "left";
 
@@ -31,9 +23,7 @@ interface TooltipProps {
   onOpenChange?: (open: boolean) => void;
 }
 
-// ---------------------------------------------------------------------------
 // Animation helpers
-// ---------------------------------------------------------------------------
 
 function getSlideOffset(side: TooltipSide) {
   switch (side) {
@@ -47,10 +37,6 @@ function getSlideOffset(side: TooltipSide) {
       return { x: -4 };
   }
 }
-
-// ---------------------------------------------------------------------------
-// Tooltip
-// ---------------------------------------------------------------------------
 
 function Tooltip({
   content,
@@ -68,6 +54,7 @@ function Tooltip({
   const shape = useShape();
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (open) setMounted(true);
   }, [open]);
 
@@ -79,10 +66,14 @@ function Tooltip({
 
   return (
     <TooltipPrimitive.Provider delayDuration={delayDuration}>
-      <TooltipPrimitive.Root open={open} onOpenChange={(v) => { setInternalOpen(v); onOpenChangeProp?.(v); }}>
-        <TooltipPrimitive.Trigger asChild>
-          {children}
-        </TooltipPrimitive.Trigger>
+      <TooltipPrimitive.Root
+        open={open}
+        onOpenChange={(v) => {
+          setInternalOpen(v);
+          onOpenChangeProp?.(v);
+        }}
+      >
+        <TooltipPrimitive.Trigger asChild>{children}</TooltipPrimitive.Trigger>
         {mounted && (
           <TooltipPrimitive.Portal forceMount>
             <TooltipPrimitive.Content
@@ -95,7 +86,7 @@ function Tooltip({
                 className={cn(
                   "bg-foreground text-background text-[12px] px-2 py-1",
                   shape.bg,
-                  className
+                  className,
                 )}
                 style={{ fontVariationSettings: fontWeights.medium }}
                 initial={{ opacity: 0, ...slideOffset }}
