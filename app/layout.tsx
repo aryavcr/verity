@@ -1,18 +1,18 @@
-import type { Metadata } from "next"
-import { GeistSans } from "geist/font/sans"
-import { GeistMono } from "geist/font/mono"
-import { Providers } from "@/components/providers"
-import "./globals.css"
+import type { Metadata } from "next";
+import { GeistSans } from "geist/font/sans";
+import { GeistMono } from "geist/font/mono";
+import { Providers } from "@/components/providers";
+import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Verity",
   description: "Continuous evaluation for LLMs",
-}
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html
@@ -27,10 +27,8 @@ export default function RootLayout({
         />
       </head>
       <body className="antialiased">
-         <div id="bg-gradient" aria-hidden="true" />
-        <div id="bg-dots" aria-hidden="true" />
         <Providers>{children}</Providers>
       </body>
     </html>
-  )
+  );
 }
