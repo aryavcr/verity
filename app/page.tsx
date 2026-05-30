@@ -1,5 +1,4 @@
 'use client';
-import { useEvalStream } from '@/hooks/use-eval-stream';
 import PromptEditor from '@/components/prompt-editor';
 import ModelSelector from '@/components/model-selector';
 import RunButton from '@/components/run-button';
@@ -9,7 +8,6 @@ import ScoreSummary from '@/components/results/score-summary';
 import DrillDownPanel from '@/components/results/drill-down-panel';
 
 export default function Home() {
-  const { startRun } = useEvalStream();
 
   return (
     <main className="min-h-screen bg-background bg-size-[20px_20px] bg-[radial-gradient(#d4d4d4_1px,transparent_1px)] dark:bg-[radial-gradient(#404040_1px,transparent_1px)]">
