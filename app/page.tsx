@@ -1,6 +1,4 @@
 'use client';
-
-import { useEvalStore } from '@/lib/eval-store';
 import { useEvalStream } from '@/hooks/use-eval-stream';
 import PromptEditor from '@/components/prompt-editor';
 import ModelSelector from '@/components/model-selector';
@@ -11,7 +9,6 @@ import ScoreSummary from '@/components/results/score-summary';
 import DrillDownPanel from '@/components/results/drill-down-panel';
 
 export default function Home() {
-  const status = useEvalStore((s) => s.status);
   const { startRun } = useEvalStream();
 
   return (
