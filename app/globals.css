@@ -432,8 +432,6 @@
   background: var(--gradient-bg);
 }
 
-
-
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -465,7 +463,7 @@
   background-size: 300% 100%;
   background-clip: text;
   -webkit-background-clip: text;
-  animation: shimmer 2s ease-in-out infinite;
+  animation: shimmer 1.5s ease-in-out infinite;
 }
 
 .score-pop {

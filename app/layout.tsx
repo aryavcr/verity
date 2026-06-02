@@ -2,7 +2,14 @@ import type { Metadata } from "next";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import { Providers } from "@/components/providers";
+import {Homemade_Apple} from "next/font/google";
 import "./globals.css";
+
+const homemadeApple = Homemade_Apple({
+  variable: "--font-logo",
+  weight: "400",
+  subsets: ["latin"],
+});
 
 export const metadata: Metadata = {
   title: "Verity",
@@ -18,7 +25,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${GeistSans.variable} ${GeistMono.variable}`}
+      className={`${GeistSans.variable} ${GeistMono.variable} ${homemadeApple.variable}`}
     >
       <head>
         <link
