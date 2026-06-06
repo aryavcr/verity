@@ -299,6 +299,8 @@ const phosphorMap: Record<IconName, IconComponent> = {
 };
 
 
+const hugeiconsMap: Record<IconName, IconComponent> = {} as Record<IconName, IconComponent>;
+
 export const iconMap: Record<IconLibrary, Record<IconName, IconComponent>> = {
   lucide: lucideMap,
   tabler: tablerMap,
