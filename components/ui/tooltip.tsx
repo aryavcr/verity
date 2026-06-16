@@ -2,11 +2,15 @@
 
 import { useEffect, useState, type ReactNode } from "react";
 import * as TooltipPrimitive from "@radix-ui/react-tooltip";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 import { springs } from "@/lib/springs";
 import { fontWeights } from "@/lib/font-weight";
 import { useShape } from "@/lib/shape-context";
+
+// ---------------------------------------------------------------------------
+// Types
+// ---------------------------------------------------------------------------
 
 type TooltipSide = "top" | "right" | "bottom" | "left";
 
@@ -23,7 +27,9 @@ interface TooltipProps {
   onOpenChange?: (open: boolean) => void;
 }
 
+// ---------------------------------------------------------------------------
 // Animation helpers
+// ---------------------------------------------------------------------------
 
 function getSlideOffset(side: TooltipSide) {
   switch (side) {
@@ -37,6 +43,10 @@ function getSlideOffset(side: TooltipSide) {
       return { x: -4 };
   }
 }
+
+// ---------------------------------------------------------------------------
+// Tooltip
+// ---------------------------------------------------------------------------
 
 function Tooltip({
   content,

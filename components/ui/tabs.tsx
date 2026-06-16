@@ -15,14 +15,13 @@ import {
   type ComponentPropsWithoutRef,
 } from "react";
 import * as TabsPrimitive from "@radix-ui/react-tabs";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "motion/react";
 import type { IconComponent } from "@/lib/icon-context";
 import { cn } from "@/lib/utils";
 import { springs } from "@/lib/springs";
 import { fontWeights } from "@/lib/font-weight";
 import { useShape } from "@/lib/shape-context";
 import { useSurface } from "@/lib/surface-context";
-import { surfaceClasses } from "@/lib/surface-classes";
 import { useProximityHover } from "@/hooks/use-proximity-hover";
 
 /* ─────────────────────── Contexts ─────────────────────── */
@@ -114,6 +113,7 @@ const Tabs = forwardRef<HTMLDivElement, TabsProps>(
           if (idx !== -1) onSelect(idx);
         }
       },
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       [onValueChange, onSelect, valueOrder],
     );
 
@@ -153,7 +153,7 @@ const TabsList = forwardRef<HTMLDivElement, TabsListProps>(
     // Active pill lifts 3 levels above substrate (1 above the muted track + 2 for pop).
     // On the page (substrate 1) this lands on surface 4 — matches the original design.
     // Inside a dialog (substrate 5) it lifts to surface 8 instead of staying at 4.
-    const indicatorLevel = Math.min(substrate + 3, 8);
+    const _indicatorLevel = Math.min(substrate + 3, 8);
     const valueOrderCtx = useContext(TabsValueOrderContext);
     const [optimisticIdx, setOptimisticIdx] = useState<number | null>(null);
 
@@ -168,6 +168,7 @@ const TabsList = forwardRef<HTMLDivElement, TabsListProps>(
     // Report value order up to Tabs root
     useLayoutEffect(() => {
       setValueOrder?.(values);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [setValueOrder, valueOrderKey]);
 
     // Proximity hover
@@ -223,6 +224,7 @@ const TabsList = forwardRef<HTMLDivElement, TabsListProps>(
       selectedValue !== undefined ? values.indexOf(selectedValue) : -1;
 
     useEffect(() => {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setOptimisticIdx(selectedIdx >= 0 ? selectedIdx : null);
     }, [selectedIdx]);
 
@@ -332,6 +334,7 @@ const TabsList = forwardRef<HTMLDivElement, TabsListProps>(
                   opacity: 0.4,
                 }}
                 exit={
+                  // eslint-disable-next-line react-hooks/refs
                   !isMouseInside.current && selectedRect
                     ? {
                         left: selectedRect.left,

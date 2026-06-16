@@ -15,7 +15,7 @@ import {
   type HTMLAttributes,
 } from "react";
 import { createPortal } from "react-dom";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "motion/react";
 import { cva, type VariantProps } from "class-variance-authority";
 import type { IconComponent } from "@/lib/icon-context";
 import { cn } from "@/lib/utils";
@@ -41,7 +41,8 @@ const SelectContext = createContext<SelectContextValue | null>(null);
 
 function useSelectContext() {
   const ctx = useContext(SelectContext);
-  if (!ctx) throw new Error("Select compound components must be inside <Select>");
+  if (!ctx)
+    throw new Error("Select compound components must be inside <Select>");
   return ctx;
 }
 
@@ -52,8 +53,9 @@ interface SelectContentContextValue {
   checkedIndex?: number;
 }
 
-const SelectContentContext =
-  createContext<SelectContentContextValue | null>(null);
+const SelectContentContext = createContext<SelectContentContextValue | null>(
+  null,
+);
 
 // ---------------------------------------------------------------------------
 // Select (root)
@@ -91,7 +93,7 @@ function Select({
       setOpen(false);
       requestAnimationFrame(() => triggerRef.current?.focus());
     },
-    [value, onValueChange]
+    [value, onValueChange],
   );
 
   return (
@@ -145,11 +147,12 @@ const triggerVariants = cva(
     defaultVariants: {
       variant: "bordered",
     },
-  }
+  },
 );
 
 interface SelectTriggerProps
-  extends Omit<HTMLAttributes<HTMLButtonElement>, "children">,
+  extends
+    Omit<HTMLAttributes<HTMLButtonElement>, "children">,
     VariantProps<typeof triggerVariants> {
   icon?: IconComponent;
   placeholder?: string;
@@ -158,89 +161,97 @@ interface SelectTriggerProps
 
 const SelectTrigger = forwardRef<HTMLButtonElement, SelectTriggerProps>(
   (
-    { className, variant, icon: Icon, placeholder = "Select…", error, ...props },
-    ref
+    {
+      className,
+      variant,
+      icon: Icon,
+      placeholder = "Select…",
+      error,
+      ...props
+    },
+    ref,
   ) => {
     const { value, open, setOpen, disabled, triggerRef, labelMap } =
       useSelectContext();
     const shape = useShape();
-    const label = value ? labelMap.current.get(value) ?? value : undefined;
+    const label = value ? (labelMap.current.get(value) ?? value) : undefined;
 
     return (
       <div className="flex flex-col gap-1">
-      <button
-        ref={(node) => {
-          (
-            triggerRef as React.MutableRefObject<HTMLButtonElement | null>
-          ).current = node;
-          if (typeof ref === "function") ref(node);
-          else if (ref)
+        <button
+          ref={(node) => {
             (
-              ref as React.MutableRefObject<HTMLButtonElement | null>
+              triggerRef as React.MutableRefObject<HTMLButtonElement | null>
             ).current = node;
-        }}
-        type="button"
-        role="combobox"
-        aria-expanded={open}
-        aria-haspopup="listbox"
-        disabled={disabled}
-        onClick={() => setOpen(!open)}
-        onKeyDown={(e) => {
-          if (
-            !open &&
-            (e.key === "ArrowDown" ||
-              e.key === "ArrowUp" ||
-              e.key === "Enter" ||
-              e.key === " ")
-          ) {
-            e.preventDefault();
-            setOpen(true);
-          }
-        }}
-        aria-invalid={!!error || undefined}
-        className={cn(
-          triggerVariants({ variant }),
-          shape.input,
-          error && "border-destructive/50 hover:border-destructive/50",
-          className
-        )}
-        {...props}
-      >
-        <span className="flex items-center gap-2 min-w-0 flex-1">
-          {Icon && (
-            <Icon
-              size={16}
-              strokeWidth={1.5}
-              className="shrink-0 text-muted-foreground transition-[color,stroke-width] duration-80 group-hover:text-foreground group-hover:stroke-[2]"
-            />
+            if (typeof ref === "function") ref(node);
+            else if (ref)
+              (
+                ref as React.MutableRefObject<HTMLButtonElement | null>
+              ).current = node;
+          }}
+          type="button"
+          // eslint-disable-next-line jsx-a11y/role-has-required-aria-props
+          role="combobox"
+          aria-expanded={open}
+          aria-haspopup="listbox"
+          disabled={disabled}
+          onClick={() => setOpen(!open)}
+          onKeyDown={(e) => {
+            if (
+              !open &&
+              (e.key === "ArrowDown" ||
+                e.key === "ArrowUp" ||
+                e.key === "Enter" ||
+                e.key === " ")
+            ) {
+              e.preventDefault();
+              setOpen(true);
+            }
+          }}
+          aria-invalid={!!error || undefined}
+          className={cn(
+            triggerVariants({ variant }),
+            shape.input,
+            error && "border-destructive/50 hover:border-destructive/50",
+            className,
           )}
-          <span className="min-w-0 flex-1 text-left truncate">
-            {label ?? (
-              <span className="text-muted-foreground">{placeholder}</span>
-            )}
-          </span>
-        </span>
-
-        <svg
-          width={16}
-          height={16}
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth={2}
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="shrink-0 text-muted-foreground transition-colors duration-80 group-hover:text-foreground"
+          {...props}
         >
-          <path d="M6 9l6 6 6-6" />
-        </svg>
-      </button>
-      {error && (
-        <span className="text-[12px] text-destructive pl-3">{error}</span>
-      )}
+          <span className="flex items-center gap-2 min-w-0 flex-1">
+            {Icon && (
+              <Icon
+                size={16}
+                strokeWidth={1.5}
+                className="shrink-0 text-muted-foreground transition-[color,stroke-width] duration-80 group-hover:text-foreground group-hover:stroke-[2]"
+              />
+            )}
+            <span className="min-w-0 flex-1 text-left truncate">
+              {label ?? (
+                <span className="text-muted-foreground">{placeholder}</span>
+              )}
+            </span>
+          </span>
+
+          <svg
+            width={16}
+            height={16}
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth={2}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="shrink-0 text-muted-foreground transition-colors duration-80 group-hover:text-foreground"
+          >
+            <path d="M6 9l6 6 6-6" />
+          </svg>
+        </button>
+        {error && (
+          <span className="text-[12px] text-destructive pl-3">{error}</span>
+        )}
       </div>
     );
-  }
+  },
 );
 
 SelectTrigger.displayName = "SelectTrigger";
@@ -273,7 +284,7 @@ const SelectContent = forwardRef<HTMLDivElement, SelectContentProps>(
 
     const [focusedIndex, setFocusedIndex] = useState<number | null>(null);
     const [checkedIndex, setCheckedIndex] = useState<number | undefined>(
-      undefined
+      undefined,
     );
 
     // Capture trigger rect synchronously when opening
@@ -296,10 +307,10 @@ const SelectContent = forwardRef<HTMLDivElement, SelectContentProps>(
           const container = containerRef.current;
           if (container) {
             const items = Array.from(
-              container.querySelectorAll("[data-proximity-index]")
+              container.querySelectorAll("[data-proximity-index]"),
             ) as HTMLElement[];
             const idx = items.findIndex(
-              (el) => el.getAttribute("data-value") === value
+              (el) => el.getAttribute("data-value") === value,
             );
             if (idx !== -1) setCheckedIndex(idx);
             else setCheckedIndex(undefined);
@@ -357,8 +368,8 @@ const SelectContent = forwardRef<HTMLDivElement, SelectContentProps>(
       (e: React.KeyboardEvent) => {
         const items = Array.from(
           containerRef.current?.querySelectorAll(
-            '[role="option"]:not([data-disabled])'
-          ) ?? []
+            '[role="option"]:not([data-disabled])',
+          ) ?? [],
         ) as HTMLElement[];
         const currentIdx = items.indexOf(e.target as HTMLElement);
 
@@ -370,7 +381,9 @@ const SelectContent = forwardRef<HTMLDivElement, SelectContentProps>(
             // No item focused yet — focus checked or first item
             const checked =
               value !== ""
-                ? items.find((item) => item.getAttribute("data-value") === value)
+                ? items.find(
+                    (item) => item.getAttribute("data-value") === value,
+                  )
                 : null;
             (checked ?? items[0])?.focus();
           } else {
@@ -387,7 +400,7 @@ const SelectContent = forwardRef<HTMLDivElement, SelectContentProps>(
           items[items.length - 1]?.focus();
         }
       },
-      [value]
+      [value],
     );
 
     // Render hidden when closed so items can register labels
@@ -402,8 +415,7 @@ const SelectContent = forwardRef<HTMLDivElement, SelectContentProps>(
     if (!triggerRect) return null;
 
     const activeRect = activeIndex !== null ? itemRects[activeIndex] : null;
-    const checkedRect =
-      checkedIndex != null ? itemRects[checkedIndex] : null;
+    const checkedRect = checkedIndex != null ? itemRects[checkedIndex] : null;
     const focusRect = focusedIndex !== null ? itemRects[focusedIndex] : null;
     const isHoveringOther =
       activeIndex !== null && activeIndex !== checkedIndex;
@@ -427,131 +439,131 @@ const SelectContent = forwardRef<HTMLDivElement, SelectContentProps>(
             transition={springs.fast}
             style={{ transformOrigin: "top center" }}
           >
-          <div
-            ref={(node) => {
-              (
-                containerRef as React.MutableRefObject<HTMLDivElement | null>
-              ).current = node;
-              if (typeof ref === "function") ref(node);
-              else if (ref)
+            <div
+              ref={(node) => {
                 (
-                  ref as React.MutableRefObject<HTMLDivElement | null>
+                  containerRef as React.MutableRefObject<HTMLDivElement | null>
                 ).current = node;
-            }}
-            role="listbox"
-            tabIndex={-1}
-            onMouseEnter={() => {
-              handlers.onMouseEnter();
-              setFocusedIndex(null);
-            }}
-            onMouseMove={handlers.onMouseMove}
-            onMouseLeave={handlers.onMouseLeave}
-            onFocus={(e) => {
-              const indexAttr = (e.target as HTMLElement)
-                .closest("[data-proximity-index]")
-                ?.getAttribute("data-proximity-index");
-              if (indexAttr != null) {
-                const idx = Number(indexAttr);
-                setActiveIndex(idx);
-                setFocusedIndex(
-                  (e.target as HTMLElement).matches(":focus-visible")
-                    ? idx
-                    : null
-                );
-              }
-            }}
-            onBlur={(e) => {
-              if (containerRef.current?.contains(e.relatedTarget as Node))
-                return;
-              setFocusedIndex(null);
-              setActiveIndex(null);
-            }}
-            onKeyDown={handleKeyDown}
-            className={cn(
-              `relative flex flex-col gap-0.5 max-h-[300px] overflow-y-auto ${shape.container} bg-card shadow-[0_4px_12px_rgba(0,0,0,0.02)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.5)] border border-border/60 p-1 select-none outline-none`,
-              className
-            )}
-          >
-            {/* Selected background */}
-            <AnimatePresence>
-              {checkedRect && (
-                <motion.div
-                  className={`absolute ${shape.bg} bg-selected/50 dark:bg-accent/40 pointer-events-none`}
-                  initial={false}
-                  animate={{
-                    top: checkedRect.top,
-                    left: checkedRect.left,
-                    width: checkedRect.width,
-                    height: checkedRect.height,
-                    opacity: isHoveringOther ? 0.8 : 1,
-                  }}
-                  exit={{ opacity: 0, transition: { duration: 0.12 } }}
-                  transition={{
-                    ...springs.moderate,
-                    opacity: { duration: 0.08 },
-                  }}
-                />
+                if (typeof ref === "function") ref(node);
+                else if (ref)
+                  (
+                    ref as React.MutableRefObject<HTMLDivElement | null>
+                  ).current = node;
+              }}
+              role="listbox"
+              tabIndex={-1}
+              onMouseEnter={() => {
+                handlers.onMouseEnter();
+                setFocusedIndex(null);
+              }}
+              onMouseMove={handlers.onMouseMove}
+              onMouseLeave={handlers.onMouseLeave}
+              onFocus={(e) => {
+                const indexAttr = (e.target as HTMLElement)
+                  .closest("[data-proximity-index]")
+                  ?.getAttribute("data-proximity-index");
+                if (indexAttr != null) {
+                  const idx = Number(indexAttr);
+                  setActiveIndex(idx);
+                  setFocusedIndex(
+                    (e.target as HTMLElement).matches(":focus-visible")
+                      ? idx
+                      : null,
+                  );
+                }
+              }}
+              onBlur={(e) => {
+                if (containerRef.current?.contains(e.relatedTarget as Node))
+                  return;
+                setFocusedIndex(null);
+                setActiveIndex(null);
+              }}
+              onKeyDown={handleKeyDown}
+              className={cn(
+                `relative flex flex-col gap-0.5 max-h-[300px] overflow-y-auto ${shape.container} bg-card shadow-[0_4px_12px_rgba(0,0,0,0.02)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.5)] border border-border/60 p-1 select-none outline-none`,
+                className,
               )}
-            </AnimatePresence>
+            >
+              {/* Selected background */}
+              <AnimatePresence>
+                {checkedRect && (
+                  <motion.div
+                    className={`absolute ${shape.bg} bg-selected/50 dark:bg-accent/40 pointer-events-none`}
+                    initial={false}
+                    animate={{
+                      top: checkedRect.top,
+                      left: checkedRect.left,
+                      width: checkedRect.width,
+                      height: checkedRect.height,
+                      opacity: isHoveringOther ? 0.8 : 1,
+                    }}
+                    exit={{ opacity: 0, transition: { duration: 0.12 } }}
+                    transition={{
+                      ...springs.moderate,
+                      opacity: { duration: 0.08 },
+                    }}
+                  />
+                )}
+              </AnimatePresence>
 
-            {/* Hover background */}
-            <AnimatePresence>
-              {activeRect && (
-                <motion.div
-                  key={sessionRef.current}
-                  className={`absolute ${shape.bg} bg-accent/40 dark:bg-accent/25 pointer-events-none`}
-                  initial={{
-                    opacity: 0,
-                    top: checkedRect?.top ?? activeRect.top,
-                    left: checkedRect?.left ?? activeRect.left,
-                    width: checkedRect?.width ?? activeRect.width,
-                    height: checkedRect?.height ?? activeRect.height,
-                  }}
-                  animate={{
-                    opacity: 1,
-                    top: activeRect.top,
-                    left: activeRect.left,
-                    width: activeRect.width,
-                    height: activeRect.height,
-                  }}
-                  exit={{ opacity: 0, transition: { duration: 0.06 } }}
-                  transition={{
-                    ...springs.fast,
-                    opacity: { duration: 0.08 },
-                  }}
-                />
-              )}
-            </AnimatePresence>
+              {/* Hover background */}
+              <AnimatePresence>
+                {activeRect && (
+                  <motion.div
+                    key={sessionRef.current}
+                    className={`absolute ${shape.bg} bg-accent/40 dark:bg-accent/25 pointer-events-none`}
+                    initial={{
+                      opacity: 0,
+                      top: checkedRect?.top ?? activeRect.top,
+                      left: checkedRect?.left ?? activeRect.left,
+                      width: checkedRect?.width ?? activeRect.width,
+                      height: checkedRect?.height ?? activeRect.height,
+                    }}
+                    animate={{
+                      opacity: 1,
+                      top: activeRect.top,
+                      left: activeRect.left,
+                      width: activeRect.width,
+                      height: activeRect.height,
+                    }}
+                    exit={{ opacity: 0, transition: { duration: 0.06 } }}
+                    transition={{
+                      ...springs.fast,
+                      opacity: { duration: 0.08 },
+                    }}
+                  />
+                )}
+              </AnimatePresence>
 
-            {/* Focus ring */}
-            <AnimatePresence>
-              {focusRect && (
-                <motion.div
-                  className={`absolute ${shape.focusRing} pointer-events-none z-20 border border-[#6B97FF]`}
-                  initial={false}
-                  animate={{
-                    left: focusRect.left - 2,
-                    top: focusRect.top - 2,
-                    width: focusRect.width + 4,
-                    height: focusRect.height + 4,
-                  }}
-                  exit={{ opacity: 0, transition: { duration: 0.06 } }}
-                  transition={{
-                    ...springs.fast,
-                    opacity: { duration: 0.08 },
-                  }}
-                />
-              )}
-            </AnimatePresence>
+              {/* Focus ring */}
+              <AnimatePresence>
+                {focusRect && (
+                  <motion.div
+                    className={`absolute ${shape.focusRing} pointer-events-none z-20 border border-[#6B97FF]`}
+                    initial={false}
+                    animate={{
+                      left: focusRect.left - 2,
+                      top: focusRect.top - 2,
+                      width: focusRect.width + 4,
+                      height: focusRect.height + 4,
+                    }}
+                    exit={{ opacity: 0, transition: { duration: 0.06 } }}
+                    transition={{
+                      ...springs.fast,
+                      opacity: { duration: 0.08 },
+                    }}
+                  />
+                )}
+              </AnimatePresence>
 
-            {children}
-          </div>
+              {children}
+            </div>
           </motion.div>
         </div>
       </SelectContentContext.Provider>,
-      document.body
+      document.body,
     );
-  }
+  },
 );
 
 SelectContent.displayName = "SelectContent";
@@ -578,7 +590,7 @@ const SelectItem = forwardRef<HTMLDivElement, SelectItemProps>(
       disabled = false,
       ...props
     },
-    ref
+    ref,
   ) => {
     const selectCtx = useSelectContext();
     const contentCtx = useContext(SelectContentContext);
@@ -639,11 +651,9 @@ const SelectItem = forwardRef<HTMLDivElement, SelectItemProps>(
         className={cn(
           `relative z-10 flex items-center gap-2 ${shape.item} px-2 py-2 text-[13px] cursor-pointer outline-none select-none`,
           "transition-[color] duration-80",
-          isActive || isChecked
-            ? "text-foreground"
-            : "text-muted-foreground",
+          isActive || isChecked ? "text-foreground" : "text-muted-foreground",
           disabled && "opacity-50 pointer-events-none",
-          className
+          className,
         )}
         {...props}
       >
@@ -691,7 +701,7 @@ const SelectItem = forwardRef<HTMLDivElement, SelectItemProps>(
         </AnimatePresence>
       </div>
     );
-  }
+  },
 );
 
 SelectItem.displayName = "SelectItem";
@@ -718,13 +728,10 @@ const SelectLabel = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => (
     <div
       ref={ref}
-      className={cn(
-        "px-2 py-1.5 text-[11px] text-muted-foreground",
-        className
-      )}
+      className={cn("px-2 py-1.5 text-[11px] text-muted-foreground", className)}
       {...props}
     />
-  )
+  ),
 );
 
 SelectLabel.displayName = "SelectLabel";
@@ -758,4 +765,9 @@ export {
   triggerVariants,
 };
 
-export type { SelectProps, SelectTriggerProps, SelectContentProps, SelectItemProps };
+export type {
+  SelectProps,
+  SelectTriggerProps,
+  SelectContentProps,
+  SelectItemProps,
+};
