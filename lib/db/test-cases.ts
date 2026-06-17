@@ -2,7 +2,8 @@ import { supabase } from './supabase'
 
 export async function upsertTestCases(
   project_id: string,
-  inputs: { input: string; label?:string; expected_output?: string; is_generated: boolean }[]
+  inputs: { input: string; label?: string; expected_output?: string; is_generated: boolean }[],
+  user_id: string,
 ) {
   // Remove existing generated test cases first
   await supabase
@@ -14,6 +15,7 @@ export async function upsertTestCases(
   const rows = inputs.map((tc, i) => ({
     ...tc,
     project_id,
+    user_id,
     sort_order: i,
   }))
 
