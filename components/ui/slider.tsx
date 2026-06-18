@@ -932,7 +932,7 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
 
               {/* Hover preview */}
               <motion.div
-                className="absolute h-full pointer-events-none z-[2]"
+                className="absolute h-full pointer-events-none z-2"
                 initial={false}
                 animate={{
                   opacity: hoverPreview && !isPressed ? 1 : 0,
@@ -975,7 +975,7 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
                     }}
                   >
                     <motion.div
-                      className="rounded-full flex-shrink-0"
+                      className="rounded-full shrink-0"
                       initial={false}
                       animate={{
                         width: isHovered ? DOT_SIZE * 1.25 : DOT_SIZE,
@@ -1335,7 +1335,7 @@ const SliderComfortable = forwardRef<HTMLDivElement, SliderComfortableProps>(
       <motion.div
         ref={mergedRef}
         className={cn(
-          "relative rounded-full bg-[#d4d7d9]/5 shadow-surface-4 w-full h-8 select-none touch-none overflow-hidden outline-offset-2",
+          "relative rounded-full bg-foreground/5 shadow-surface-4 w-full h-8 select-none touch-none overflow-hidden outline-offset-2",
           variant === "scrubber"
             ? "flex items-center gap-3 px-4 cursor-ew-resize"
             : "cursor-ew-resize",
@@ -1360,7 +1360,7 @@ const SliderComfortable = forwardRef<HTMLDivElement, SliderComfortableProps>(
           max={max}
           step={step}
           disabled={disabled}
-          className="absolute inset-0 opacity-0 pointer-events-none [&_*]:pointer-events-none"
+          className="absolute inset-0 opacity-0 pointer-events-none **:pointer-events-none"
         >
           <SliderPrimitive.Track className="w-full h-full">
             <SliderPrimitive.Range />
@@ -1376,7 +1376,7 @@ const SliderComfortable = forwardRef<HTMLDivElement, SliderComfortableProps>(
 
         {/* Hover preview */}
         <motion.div
-          className="absolute rounded-full shadow-surface-4 inset-y-0 pointer-events-none bg-[#d4d7d9]/10 z-3"
+          className="absolute rounded-full shadow-surface-4 inset-y-0 pointer-events-none bg-foreground/10 z-3"
           initial={false}
           animate={{
             opacity: hoverPreview && !isPressed ? 1 : 0,
@@ -1391,7 +1391,7 @@ const SliderComfortable = forwardRef<HTMLDivElement, SliderComfortableProps>(
         {/* Pips: dots layer — z-[1] */}
         {variant === "pips" && (
           <motion.div
-            className="absolute inset-0 flex justify-between items-center px-3 pointer-events-none z-[1]"
+            className="absolute inset-0 flex justify-between items-center px-3 pointer-events-none z-1"
             style={{ WebkitMaskImage: pipsMaskStyle, maskImage: pipsMaskStyle }}
           >
             {pipSteps.map((pipValue) => {
@@ -1420,7 +1420,7 @@ const SliderComfortable = forwardRef<HTMLDivElement, SliderComfortableProps>(
 
         {/* Pips: label + value BG layer — z-[2] (occludes dots behind text) */}
         {variant === "pips" && (
-          <div className="absolute inset-0 flex items-center px-2 z-[2] pointer-events-none" aria-hidden>
+          <div className="absolute inset-0 flex items-center px-2 z-2 pointer-events-none" aria-hidden>
             {label && (
               <span className="text-[13px] bg-[#0e0e0e] px-2 text-transparent select-none">
                 {label}
@@ -1438,7 +1438,7 @@ const SliderComfortable = forwardRef<HTMLDivElement, SliderComfortableProps>(
         {/* Pips: fill — z-[3] */}
         {variant === "pips" && (
           <motion.div
-            className="absolute left-0 top-0 bottom-0 pointer-events-none z-[3]"
+            className="absolute left-0 top-0 bottom-0 pointer-events-none z-3"
             style={{
               width: pipsFillWidthStyle,
               backgroundColor: "var(--active)",
@@ -1449,7 +1449,7 @@ const SliderComfortable = forwardRef<HTMLDivElement, SliderComfortableProps>(
         {/* Pips: handle line — z-[3] */}
         {variant === "pips" && (
           <motion.div
-            className="absolute rounded-full pointer-events-none z-[3]"
+            className="absolute rounded-full pointer-events-none z-3"
             initial={false}
             animate={{
               top: isActive ? 7 : 8,
@@ -1470,7 +1470,7 @@ const SliderComfortable = forwardRef<HTMLDivElement, SliderComfortableProps>(
 
         {/* Pips: label + value text layer — z-[4] */}
         {variant === "pips" && (
-          <div className="absolute inset-0 flex items-center px-2 z-[4] pointer-events-none">
+          <div className="absolute inset-0 flex items-center px-2 z-4 pointer-events-none">
             {label && (
               <motion.span
                 className="text-[13px] px-2"

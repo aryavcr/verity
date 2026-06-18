@@ -23,9 +23,7 @@ import { springs } from "@/lib/springs";
 import { useProximityHover } from "@/hooks/use-proximity-hover";
 import { useShape } from "@/lib/shape-context";
 
-// ---------------------------------------------------------------------------
 // Select context
-// ---------------------------------------------------------------------------
 
 interface SelectContextValue {
   value: string;
@@ -57,9 +55,7 @@ const SelectContentContext = createContext<SelectContentContextValue | null>(
   null,
 );
 
-// ---------------------------------------------------------------------------
 // Select (root)
-// ---------------------------------------------------------------------------
 
 interface SelectProps {
   children: ReactNode;
@@ -123,9 +119,7 @@ function Select({
 
 Select.displayName = "Select";
 
-// ---------------------------------------------------------------------------
 // SelectTrigger
-// ---------------------------------------------------------------------------
 
 const triggerVariants = cva(
   [
@@ -222,7 +216,7 @@ const SelectTrigger = forwardRef<HTMLButtonElement, SelectTriggerProps>(
               <Icon
                 size={16}
                 strokeWidth={1.5}
-                className="shrink-0 text-muted-foreground transition-[color,stroke-width] duration-80 group-hover:text-foreground group-hover:stroke-[2]"
+                className="shrink-0 text-muted-foreground transition-[color,stroke-width] duration-80 group-hover:text-foreground group-hover:stroke-2"
               />
             )}
             <span className="min-w-0 flex-1 text-left truncate">
@@ -256,10 +250,7 @@ const SelectTrigger = forwardRef<HTMLButtonElement, SelectTriggerProps>(
 
 SelectTrigger.displayName = "SelectTrigger";
 
-// ---------------------------------------------------------------------------
 // SelectContent
-// ---------------------------------------------------------------------------
-
 interface SelectContentProps {
   className?: string;
   children: ReactNode;
@@ -480,7 +471,7 @@ const SelectContent = forwardRef<HTMLDivElement, SelectContentProps>(
               }}
               onKeyDown={handleKeyDown}
               className={cn(
-                `relative flex flex-col gap-0.5 max-h-[300px] overflow-y-auto ${shape.container} bg-card shadow-[0_4px_12px_rgba(0,0,0,0.02)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.5)] border border-border/60 p-1 select-none outline-none`,
+                `relative flex flex-col gap-0.5 max-h-75 overflow-y-auto ${shape.container} bg-card shadow-[0_4px_12px_rgba(0,0,0,0.02)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.5)] border border-border/60 p-1 select-none outline-none`,
                 className,
               )}
             >
@@ -568,9 +559,7 @@ const SelectContent = forwardRef<HTMLDivElement, SelectContentProps>(
 
 SelectContent.displayName = "SelectContent";
 
-// ---------------------------------------------------------------------------
 // SelectItem
-// ---------------------------------------------------------------------------
 
 interface SelectItemProps extends HTMLAttributes<HTMLDivElement> {
   icon?: IconComponent;
@@ -706,9 +695,7 @@ const SelectItem = forwardRef<HTMLDivElement, SelectItemProps>(
 
 SelectItem.displayName = "SelectItem";
 
-// ---------------------------------------------------------------------------
 // SelectGroup + SelectLabel + SelectSeparator
-// ---------------------------------------------------------------------------
 
 function SelectGroup({
   children,
@@ -749,10 +736,6 @@ const SelectSeparator = forwardRef<
 ));
 
 SelectSeparator.displayName = "SelectSeparator";
-
-// ---------------------------------------------------------------------------
-// Exports
-// ---------------------------------------------------------------------------
 
 export {
   Select,

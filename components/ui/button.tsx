@@ -18,8 +18,10 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        primary: "bg-foreground text-background hover:bg-foreground/90 active:bg-foreground/80",
-        secondary: "bg-accent text-foreground hover:bg-accent/80 active:bg-accent",
+        primary:
+          "bg-foreground text-background hover:bg-foreground/90 active:bg-foreground/80",
+        secondary:
+          "bg-accent text-foreground hover:bg-accent/80 active:bg-accent",
         tertiary:
           "border border-border text-foreground bg-transparent hover:bg-muted active:bg-muted/60",
         ghost:
@@ -48,11 +50,12 @@ const buttonVariants = cva(
       variant: "primary",
       size: "md",
     },
-  }
+  },
 );
 
 interface ButtonProps
-  extends ButtonHTMLAttributes<HTMLButtonElement>,
+  extends
+    ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
   asChild?: boolean;
   loading?: boolean;
@@ -75,10 +78,11 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       style,
       ...props
     },
-    ref
+    ref,
   ) => {
     const Comp = asChild ? Slot : "button";
-    const isIconOnly = size === "icon" || size === "icon-sm" || size === "icon-lg";
+    const isIconOnly =
+      size === "icon" || size === "icon-sm" || size === "icon-lg";
     const iconSize = size === "sm" ? 14 : size === "lg" ? 20 : 16;
     const shape = useShape();
 
@@ -93,7 +97,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             iconRight: !isIconOnly && !!TrailingIcon,
           }),
           shape.button,
-          className
+          className,
         )}
         disabled={disabled || loading}
         style={style}
@@ -111,11 +115,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
               )}
             </span>
             <span className="absolute inset-0 flex items-center justify-center">
-              <svg
-                className="h-8 w-8"
-                viewBox="0 0 24 24"
-                fill="none"
-              >
+              <svg className="h-8 w-8" viewBox="0 0 24 24" fill="none">
                 <path
                   d="M 12 12 C 14 8.5 19 8.5 19 12 C 19 15.5 14 15.5 12 12 C 10 8.5 5 8.5 5 12 C 5 15.5 10 15.5 12 12 Z"
                   stroke="currentColor"
@@ -124,14 +124,15 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                   pathLength="100"
                   style={{
                     strokeDasharray: "15 85",
-                    animation: "spinner-move 2s linear infinite, spinner-dash 4s ease-in-out infinite",
+                    animation:
+                      "spinner-move 2s linear infinite, spinner-dash 4s ease-in-out infinite",
                   }}
                 />
               </svg>
             </span>
           </>
         ) : isIconOnly ? (
-          <span className="[&_svg]:stroke-[1.5] [&_svg]:transition-[stroke-width] [&_svg]:duration-80 group-hover:[&_svg]:stroke-[2]">
+          <span className="[&_svg]:stroke-[1.5] [&_svg]:transition-[stroke-width] [&_svg]:duration-80 group-hover:[&_svg]:stroke-2">
             {children}
           </span>
         ) : (
@@ -140,7 +141,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
               <LeadingIcon
                 size={iconSize}
                 strokeWidth={1.5}
-                className="transition-[stroke-width] duration-80 group-hover:stroke-[2]"
+                className="transition-[stroke-width] duration-80 group-hover:stroke-2"
               />
             )}
             <span>{children}</span>
@@ -148,14 +149,14 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
               <TrailingIcon
                 size={iconSize}
                 strokeWidth={1.5}
-                className="transition-[stroke-width] duration-80 group-hover:stroke-[2]"
+                className="transition-[stroke-width] duration-80 group-hover:stroke-2"
               />
             )}
           </>
         )}
       </Comp>
     );
-  }
+  },
 );
 
 Button.displayName = "Button";
