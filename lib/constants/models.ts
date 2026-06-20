@@ -78,6 +78,13 @@ export const MODELS: ModelOption[] = [
     contextWindow: 262000,
     free: true,
   },
+  {
+    id: "deepseek/deepseek-v4-flash",
+    name: "DeepSeek V4 Flash",
+    provider: "openrouter",
+    contextWindow: 1000000,
+    free: false,
+  },
 
   //groq free tier
   {
@@ -146,6 +153,8 @@ export const MODELS: ModelOption[] = [
     free: true,
   },
 ];
+
+export const FALLBACK_TARGET_MODEL = "mistralai/ministral-8b-2512";
 
 export function getModelsByProvider(
   provider: "openrouter" | "google" | "groq",

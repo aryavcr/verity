@@ -30,7 +30,8 @@ const IconContext = createContext<IconContextValue | null>(null);
 
 function useIconLibrary() {
   const ctx = useContext(IconContext);
-  if (!ctx) throw new Error("useIconLibrary must be used within an IconProvider");
+  if (!ctx)
+    throw new Error("useIconLibrary must be used within an IconProvider");
   return ctx;
 }
 
@@ -53,7 +54,8 @@ function IconProvider({
   children: ReactNode;
   defaultLibrary?: IconLibrary;
 }) {
-  const [iconLibrary, setIconLibraryState] = useState<IconLibrary>(defaultLibrary);
+  const [iconLibrary, setIconLibraryState] =
+    useState<IconLibrary>(defaultLibrary);
 
   const setIconLibrary = useCallback((next: IconLibrary) => {
     setIconLibraryState(next);
@@ -64,7 +66,12 @@ function IconProvider({
       if (e.key !== "i" && e.key !== "I") return;
       if (e.metaKey || e.ctrlKey || e.altKey) return;
       const tag = (e.target as HTMLElement)?.tagName;
-      if (tag === "INPUT" || tag === "TEXTAREA" || (e.target as HTMLElement)?.isContentEditable) return;
+      if (
+        tag === "INPUT" ||
+        tag === "TEXTAREA" ||
+        (e.target as HTMLElement)?.isContentEditable
+      )
+        return;
       e.preventDefault();
       setIconLibraryState((prev) => {
         const idx = iconLibraryOrder.indexOf(prev);
