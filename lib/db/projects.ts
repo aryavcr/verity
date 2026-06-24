@@ -1,14 +1,28 @@
 import { supabase } from "./supabase";
 import { DEFAULT_CRITERIA } from "@/lib/constants/criteria";
 
-export async function createProject(data: {
-  name: string;
-  system_prompt: string;
-  provider: string;
-  model: string;
-  judge_model: string;
-  output_type: string;
-}) {
+type CriterionInput = {
+  key: string;
+  label: string;
+  description: string;
+  scorer_type: "llm-judge";
+  weight: number;
+  sort_order: number;
+};
+
+export async function createProject(
+  data: {
+    name: string;
+    system_prompt: string;
+    provider: string;
+    model: string;
+    judge_model: string;
+    output_type: string;
+    user_id: string;
+  },
+  /** Optional because it defaults to DEFAULT_CRITERIA (the "general" eval type) for back-compatibility */
+  criteria: CriterionInput[] = DEFAULT_CRITERIA,
+) {
   const { data: project, error } = await supabase
     .from("projects")
     .insert(data)
@@ -17,10 +31,15 @@ export async function createProject(data: {
 
   if (error) throw error;
 
-  //seed default criteria
-  const criteriaRows = DEFAULT_CRITERIA.map((c) => ({
-    ...c,
+  const criteriaRows = criteria.map((c) => ({
+    key: c.key,
+    label: c.label,
+    description: c.description,
+    scorer_type: c.scorer_type,
+    weight: c.weight,
+    sort_order: c.sort_order,
     project_id: project.id,
+    user_id: data.user_id,
   }));
 
   const { error: criteriaError } = await supabase
