@@ -125,7 +125,7 @@ const CHEVRON_PATHS: Record<string, string> = {
 };
 
 // Band size presets along the scroll axis. The chevron stays 16px in both.
-const CUE_SIZES = { tight: 32, comfortable: 60 } as const;
+const CUE_SIZES = { compact: 16, tight: 32, comfortable: 60 } as const;
 
 export type ScrollEdgeCueSize = keyof typeof CUE_SIZES;
 

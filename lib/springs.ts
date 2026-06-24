@@ -6,12 +6,12 @@ const fastBase = {
 const moderateBase = {
   type: "spring" as const,
   duration: 0.16,
-  bounce: 0.15,
+  bounce: 0.08,
 };
 const slowBase = {
   type: "spring" as const,
   duration: 0.24,
-  bounce: 0.15,
+  bounce: 0.12,
 };
 
 export const springs = {
@@ -20,10 +20,8 @@ export const springs = {
   slow: slowBase,
 } as const;
 
-// `spring` (singular) — alias used by the fluid-functionalism slider.
-// Each tier carries an `.exit` that AnimatePresence reads on unmount.
 export const spring = {
-  fast: { ...fastBase, exit: fastBase },
-  moderate: { ...moderateBase, exit: moderateBase },
-  slow: { ...slowBase, exit: slowBase },
+  fast: { ...fastBase, exit: { duration: 0.06 } },
+  moderate: { ...moderateBase, exit: { duration: 0.12 } },
+  slow: { ...slowBase, exit: { duration: 0.16 } },
 } as const;
