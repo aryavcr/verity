@@ -1,3 +1,4 @@
+// model provider client factories for all supported backends
 import { createOpenAI } from "@ai-sdk/openai";
 import { createGoogleGenerativeAI } from "@ai-sdk/google";
 import { createGroq } from "@ai-sdk/groq";
@@ -58,7 +59,7 @@ export function getOpenRouterTargetWithFallback(
   });
   const models =
     modelId === FALLBACK_TARGET_MODEL
-      ? [modelId]
+      ? [modelId] // avoid self-fallback
       : [modelId, FALLBACK_TARGET_MODEL];
   return client(modelId, { extraBody: { models } });
 }
