@@ -21,17 +21,25 @@ interface ShapeClasses {
   container: string;
   button: string;
   input: string;
+  // numeric border radii in px for per-corner animations
+  // classes cannot animate individual corners
+  bgRadius: number;
+  mergedRadius: number;
 }
 
 const shapeMap: Record<ShapeVariant, ShapeClasses> = {
   pill: {
-    item: "rounded-lg",
-    bg: "rounded",
-    focusRing: "rounded-lg",
+    item: "rounded-[20px]",
+    bg: "rounded-[20px]",
+    // +2px over item because focus ring sits 2px outside
+    // keeps corners concentric between element and ring
+    focusRing: "rounded-[22px]",
     mergedBg: "rounded-2xl",
-    container: "rounded-sm",
+    container: "rounded-3xl",
     button: "rounded-[20px]",
     input: "rounded-[20px]",
+    bgRadius: 20,
+    mergedRadius: 16,
   },
   rounded: {
     item: "rounded-lg",
@@ -41,6 +49,8 @@ const shapeMap: Record<ShapeVariant, ShapeClasses> = {
     container: "rounded-xl",
     button: "rounded-lg",
     input: "rounded-lg",
+    bgRadius: 8,
+    mergedRadius: 8,
   },
 };
 
@@ -86,7 +96,7 @@ function ShapeProvider({
     transitionShape(() => setShapeState(next));
   }, []);
 
-  // Global keyboard shortcut: R to cycle radius
+  // cycle shape variant on R keypress
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key !== "r" && e.key !== "R") return;

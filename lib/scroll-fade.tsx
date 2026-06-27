@@ -8,15 +8,8 @@ import {
 } from "react";
 import { useSurface } from "@/lib/surface-context";
 
-// ---------------------------------------------------------------------------
-// Scroll-edge primitives
-//
-// useScrollEdges tracks which edges of a scroll container have more content
-// beyond them; ScrollEdgeCue renders the affordance for one edge — a
-// surface-colour gradient fading the content out toward the edge, with a
-// small chevron hinting at the scroll direction. Together they give any
-// scrolling surface the same "there's more" cue the Select menu uses.
-// ---------------------------------------------------------------------------
+// scroll-edge detection and visual fade cue primitives
+// tracks which edges have overflow and renders gradient + chevron
 
 export interface ScrollEdges {
   top: boolean;
@@ -70,7 +63,7 @@ export function useScrollEdges(
         next.left = overflowing && scrollLeft > 1;
         next.right = overflowing && scrollLeft + clientWidth < scrollWidth - 1;
       }
-      // Bail out on no-op updates so observer churn doesn't re-render.
+      // skip re-render when edges haven't changed
       setEdges((prev) =>
         prev.top === next.top &&
         prev.bottom === next.bottom &&
@@ -82,15 +75,13 @@ export function useScrollEdges(
     };
 
     update();
-    // Recompute once layout settles after enter animations.
+    // recompute after enter animations settle
     const raf = requestAnimationFrame(update);
     el.addEventListener("scroll", update, { passive: true });
     const ro = new ResizeObserver(update);
     ro.observe(el);
-    // Async content (items loading in, streamed text) changes scrollHeight
-    // without resizing the container itself. Coalesce to one update per
-    // frame: update() reads layout, and doing that synchronously after
-    // every mutation forces a reflow per insertion in streaming content.
+    // coalesce mutation updates to one per animation frame
+    // avoids forced reflows during streaming content insertions
     let moRaf = 0;
     const scheduleUpdate = () => {
       if (moRaf) return;
@@ -113,9 +104,7 @@ export function useScrollEdges(
   return edges;
 }
 
-// ---------------------------------------------------------------------------
-// ScrollEdgeCue
-// ---------------------------------------------------------------------------
+// visual fade cue for a single scroll edge
 
 const CHEVRON_PATHS: Record<string, string> = {
   top: "M6 15l6-6 6 6",
@@ -124,7 +113,7 @@ const CHEVRON_PATHS: Record<string, string> = {
   right: "M9 6l6 6-6 6",
 };
 
-// Band size presets along the scroll axis. The chevron stays 16px in both.
+// band size presets along the scroll axis
 const CUE_SIZES = { compact: 16, tight: 32, comfortable: 60 } as const;
 
 export type ScrollEdgeCueSize = keyof typeof CUE_SIZES;
@@ -162,13 +151,13 @@ export function ScrollEdgeCue({
   chevron = true,
 }: ScrollEdgeCueProps) {
   const contextLevel = useSurface();
-  // Clamp to the ladder (1–8), mirroring SurfaceProvider — an out-of-range
-  // override would interpolate an invalid var and silently kill the gradient.
+  // clamp to valid surface ladder range 1-8
+  // out-of-range overrides produce invalid css variables
   const level = Math.max(1, Math.min(8, surfaceLevel ?? contextLevel));
   const surface = `var(--surface-${level})`;
   const vertical = edge === "top" || edge === "bottom";
   const sizePx = CUE_SIZES[size];
-  // Gradient direction where 100% == the hard outer edge.
+  // gradient direction, 100% is the hard outer edge
   const dir = `to ${edge}`;
 
   const band = (
@@ -177,7 +166,7 @@ export function ScrollEdgeCue({
         {
           position: "absolute",
           opacity: visible ? 1 : 0,
-          // Exit slightly faster than enter, per the animation guidelines.
+          // exit slightly faster than enter
           transition: `opacity ${visible ? 160 : 120}ms ease`,
           ...(mode === "sticky"
             ? vertical
@@ -227,7 +216,7 @@ export function ScrollEdgeCue({
     return <div aria-hidden>{band}</div>;
   }
 
-  // Sticky: a zero-size sticky anchor so the cue adds no layout extent.
+  // zero-size sticky anchor adds no layout extent
   return (
     <div
       aria-hidden

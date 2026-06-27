@@ -21,6 +21,7 @@ import {
 export type { IconComponent, IconName, IconLibrary } from "@/lib/icon-map";
 export { iconLibraryOrder, iconLibraryLabels } from "@/lib/icon-map";
 
+// current icon library selection and setter
 interface IconContextValue {
   iconLibrary: IconLibrary;
   setIconLibrary: (lib: IconLibrary) => void;
@@ -28,6 +29,7 @@ interface IconContextValue {
 
 const IconContext = createContext<IconContextValue | null>(null);
 
+// hook returning icon library context
 function useIconLibrary() {
   const ctx = useContext(IconContext);
   if (!ctx)
@@ -35,18 +37,21 @@ function useIconLibrary() {
   return ctx;
 }
 
+// hook returning a single icon component
 function useIcon(name: IconName): IconComponent {
   const ctx = useContext(IconContext);
   if (!ctx) return iconMap.lucide[name];
   return iconMap[ctx.iconLibrary][name];
 }
 
+// hook returning all icons from current library
 function useIcons(): Record<IconName, IconComponent> {
   const ctx = useContext(IconContext);
   const lib = ctx?.iconLibrary ?? "lucide";
   return useMemo(() => iconMap[lib], [lib]);
 }
 
+// provider with keyboard shortcut to cycle libraries
 function IconProvider({
   children,
   defaultLibrary = "lucide",
