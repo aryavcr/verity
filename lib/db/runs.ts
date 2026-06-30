@@ -1,3 +1,4 @@
+// run record management, slug generation, and pruning
 import { supabase } from "./supabase";
 import { generateSlug } from "@/lib/utils/slug";
 
@@ -93,7 +94,7 @@ export async function insertRunResults(
   if (error) throw error;
 }
 
-/** Keep only the latest `keep` runs for one user, dletes older runs' projects & remember that CASCADE sweeps children */
+// keep only the latest n runs for one user, cascade deletes children
 export async function pruneOldRuns(
   userId: string,
   keep: number,
@@ -115,8 +116,8 @@ export async function pruneOldRuns(
   await supabase.from("projects").delete().in("id", projectIds);
 }
 
-/** Keep only the latest `keep` projects for one user. Used for anon users so a whole b1 to v3 chain (which lives under one project) counts as a single slot instead of N. Projects are ordered by their most-recent run activity so iterating on an older project bumps it back to the front.
- */
+// keep only the latest n projects for anon users
+// a v1-to-v3 chain under one project counts as one slot
 export async function pruneOldProjects(
   userId: string,
   keep: number,
@@ -129,7 +130,7 @@ export async function pruneOldProjects(
 
   if (error || !data?.length) return;
 
-  // First-appearance order = most-recent activity first; dedupe project_ids.
+  // deduplicate by first appearance, most recent activity first
   const seen = new Set<string>();
   const ordered: string[] = [];
   for (const r of data) {
@@ -145,7 +146,7 @@ export async function pruneOldProjects(
   await supabase.from("projects").delete().in("id", toDelete);
 }
 
-/**aall runs sharing a project_id, ordered by version_number ascending. */
+// get all runs sharing a project id, ordered by version
 export async function getRunChainByProject(projectId: string) {
   const { data, error } = await supabase
     .from("runs")
@@ -171,6 +172,16 @@ export async function countRunsToday(userId: string): Promise<number> {
 
   if (error) return 0;
   return count ?? 0;
+}
+
+// shared run name: <prefix>DDNN where DD is day & NN = today's sequential run number
+export async function buildRunName(
+  userId: string,
+  prefix: string,
+): Promise<string> {
+  const dd = new Date().getDate().toString().padStart(2, "0");
+  const nn = ((await countRunsToday(userId)) + 1).toString().padStart(2, "0");
+  return `${prefix} ${dd}${nn}`;
 }
 
 export async function setRunVisibility(runId: string, isPublic: boolean) {
