@@ -1,0 +1,12 @@
+# build outputs / deps
+.next
+node_modules
+out
+public
+
+# lockfiles & generated
+pnpm-lock.yaml
+pnpm-workspace.yaml
+
+# prose — keep docs diffs out of format runs
+*.md

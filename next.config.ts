@@ -1,6 +1,14 @@
 import type { NextConfig } from "next";
+import createMDX from "@next/mdx";
+
+const withMDX = createMDX({
+  options: {
+    remarkPlugins: [],
+  },
+});
 
 const nextConfig: NextConfig = {
+  pageExtensions: ["js", "jsx", "mdx", "ts", "tsx"],
   devIndicators: false,
   experimental: {
     viewTransition: true,
@@ -10,6 +18,13 @@ const nextConfig: NextConfig = {
       "@phosphor-icons/react",
       "@lobehub/icons",
     ],
+  },
+  async redirects() {
+    return [
+      { source: "/multi-turn/compare", destination: "/compare", permanent: false },
+      { source: "/gallery", destination: "/history", permanent: true },
+      { source: "/docs/guides/gallery", destination: "/docs/guides/history", permanent: true },
+    ];
   },
   async headers() {
     return [
@@ -27,7 +42,6 @@ const nextConfig: NextConfig = {
       },
     ];
   },
-  // TODO: add CSP (report-only first)
 };
 
-export default nextConfig;
+export default withMDX(nextConfig);
