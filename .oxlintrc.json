@@ -1,0 +1,116 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "ignorePatterns": [
+    ".agent/**",
+    ".agents/**",
+    ".claude/**",
+    ".codex/**",
+    ".continue/**",
+    ".cursor/**",
+    ".gemini/**",
+    ".opencode/**",
+    ".pi/**",
+    ".roo/**",
+    ".windsurf/**",
+    ".next/**",
+    "out/**",
+    "build/**",
+    "next-env.d.ts",
+    "tools/oxlint/anti-slop/**"
+  ],
+  "plugins": [
+    "unicorn",
+    "typescript",
+    "oxc",
+    "react",
+    "nextjs",
+    "jsx-a11y",
+    "import",
+    "promise",
+    "react-perf"
+  ],
+  "categories": {
+    "correctness": "error",
+    "suspicious": "error",
+    "perf": "error"
+  },
+  "jsPlugins": [{ "name": "anti-slop", "specifier": "./tools/oxlint/anti-slop/index.ts" }],
+  "rules": {
+    "anti-slop/no-chained-type-assertions": "error",
+    "anti-slop/no-conditional-empty-object-spread": "error",
+    "anti-slop/no-known-value-widening": "error",
+    "anti-slop/no-module-mocking": "error",
+    "anti-slop/no-object-parameters": "error",
+    "anti-slop/no-reflect-apply": "error",
+    "anti-slop/no-reflect-get": "error",
+    "anti-slop/no-runtime-typeof": "error",
+    "anti-slop/no-shape-in-symbol-names": "error",
+    "anti-slop/no-unknown-parameters": "error",
+    "anti-slop/no-unknown-returns": "error",
+    "anti-slop/no-unknown-type-aliases": "error",
+    "anti-slop/no-unsafe-dictionary-type": "error",
+    "anti-slop/no-widen-then-assert": "error",
+    "anti-slop/require-safety-comment-for-type-assertion": "error",
+
+    "typescript/no-non-null-assertion": "error",
+    "typescript/no-explicit-any": "error",
+
+    "react/react-in-jsx-scope": "off",
+    "react-perf/jsx-no-jsx-as-prop": "off",
+    "react-perf/jsx-no-new-array-as-prop": "off",
+    "react-perf/jsx-no-new-function-as-prop": "off",
+    "react-perf/jsx-no-new-object-as-prop": "off",
+    "import/no-unassigned-import": "off",
+    "eslint/no-await-in-loop": "off",
+    "oxc/no-map-spread": "off",
+
+    "eslint/no-shadow": "warn",
+    "jsx-a11y/control-has-associated-label": "warn",
+    "jsx-a11y/no-noninteractive-element-interactions": "warn",
+    "jsx-a11y/prefer-tag-over-role": "warn",
+    "promise/always-return": ["warn", { "ignoreLastCallback": true }],
+    "react/no-array-index-key": "warn",
+    "unicorn/consistent-function-scoping": "warn",
+    "unicorn/no-array-sort": "warn",
+    "unicorn/no-instanceof-builtins": "warn"
+  },
+  "overrides": [
+    {
+      "files": ["scripts/**"],
+      "rules": {
+        "eslint/no-underscore-dangle": "off",
+        "eslint/no-shadow": "off",
+        "oxc/no-accumulating-spread": "off",
+        "unicorn/consistent-function-scoping": "off",
+        "unicorn/no-array-sort": "off",
+        "unicorn/prefer-array-find": "off"
+      }
+    },
+    {
+      "files": [
+        "**/*.test.ts",
+        "**/*.test.tsx",
+        "e2e/**",
+        "playwright.config.ts",
+        "vitest.config.ts"
+      ],
+      "rules": {
+        "anti-slop/no-conditional-empty-object-spread": "off",
+        "anti-slop/require-safety-comment-for-type-assertion": "off",
+        "anti-slop/no-object-parameters": "off",
+        "anti-slop/no-unsafe-dictionary-type": "off",
+        "unicorn/consistent-function-scoping": "off"
+      }
+    },
+    {
+      "files": ["lib/observability/log.ts", "lib/analytics/posthog.ts", "lib/db/save-helpers.ts"],
+      "rules": {
+        "anti-slop/no-unknown-type-aliases": "off",
+        "anti-slop/no-unknown-parameters": "off",
+        "anti-slop/no-runtime-typeof": "off",
+        "anti-slop/no-conditional-empty-object-spread": "off",
+        "anti-slop/require-safety-comment-for-type-assertion": "off"
+      }
+    }
+  ]
+}
