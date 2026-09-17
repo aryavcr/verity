@@ -1,2 +1,7 @@
-# Auto detect text files and perform LF normalization
-* text=auto
+# Normalise line endings so Windows authoring does not produce mixed endings.
+* text=auto eol=lf
+
+# Binary assets
+*.png binary
+*.ico binary
+*.woff2 binary
